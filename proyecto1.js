@@ -32,9 +32,6 @@ function jugar(){
     }
 
     console.log('Has salido de tu casa!');
-    //Quisiera tener varios resultados, se me ocurrió para evitar usar muchos ifs hacerlo con un array de condiciones
-    // un array que contega resultados pero esto no entraria en esta preentrega. 
-    //asi que lo dejé así simplemente.
     
     if(ventana && llave && plantas && billetera && hornalla){
         alert("tu casa está segura y tienes todo que tengas un lindo día! :)");
