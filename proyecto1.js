@@ -6,7 +6,6 @@ let llave;
 let plantas;
 let billetera;
 
-// tengo dudas de si no hay formas mas eficientes de hacer lo mismo. 
 
 function jugar(){
     alert("Estas a punto de empezar a jugar! El objetivo es salir de casa");
@@ -14,41 +13,21 @@ function jugar(){
     while (seguir){
         console.log('Es hora de irte!');
 
-        console.log('Agarraste la llave?');
-        llave = prompt("ingrese si o no");
-        frase="agarrado la llave";
-        llave=chequear(frase, llave);
+        llave =accion('llave', 'agarrado', 'Agarraste la');
         if (!seguir) break; 
         
-        console.log('Quieres cerrar la ventana?');
-        ventana = prompt("ingrese si o no");
-        frase="cerrado la ventana";
-        ventana=chequear(frase, ventana);
+        ventana =accion('ventana', 'cerrado', 'Cerraste la');
         if (!seguir) break; 
         
-        console.log('Quieres chequear la hornalla?');
-        hornalla = prompt("ingrese si o no");
-        frase="apagado la hornalla";
-        hornalla=chequear(frase, hornalla);
-        if (!seguir) break; 
-
-        console.log('Regaste las plantas?');
-        plantas = prompt("ingrese si o no");
-        objeto="regado las plantas";
-        plantas=chequear(frase, plantas);
-        if (!seguir) break; 
-
-        console.log('Tenes la billetera?');
-        billetera = prompt("ingrese si o no");
-        objeto="agarrado la billetera";
-        billetera=chequear(frase, billetera);
+        billetera =accion('billetera', 'agarrado', 'Agarraste la');
         if (!seguir) break; 
         
-        console.log('Seguro que agarrate la llave?');
-        llave = prompt("ingrese si o no");
-        objeto="agarrado la llave";
-        llave=chequear(frase, llave);
+        hornalla =accion('hornalla', 'apagado', 'Apagaste la');
         if (!seguir) break; 
+        
+        plantas =accion('planta', 'regado', 'Regaste la');
+        if (!seguir) break; 
+        
         
     }
 
@@ -84,3 +63,13 @@ function irse(){
     }
 
 }
+
+function accion(nombre, accion, pregunta){
+    console.log( `${pregunta} ${nombre}?`);
+    let respuesta = prompt("Ingrese si o no");
+    let frase = `${accion} la ${nombre}`;
+    return chequear(frase, respuesta);
+}
+
+
+jugar();
