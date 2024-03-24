@@ -1,62 +1,44 @@
-//originalmente habia pensado en una estructura asi:
-let objetos = [
-  {
-    nombre: "llave",
-    pregunta: "agarrar la",
-    accion: "agarrado",
-    condicion: false,
-  },
-  {
-    nombre: "ventana",
-    pregunta: "cerrar la",
-    accion: "cerrado",
-    condicion: false,
-  },
-  {
-    nombre: "hornalla",
-    pregunta: "apagar la",
-    accion: "apagado",
-    condicion: false,
-  },
-  {
-    nombre: "plantas",
-    pregunta: "regar la",
-    accion: "regado",
-    condicion: false,
-  },
-  {
-    nombre: "billetera",
-    pregunta: "agarrar la",
-    accion: "agarrado",
-    condicion: false,
-  },
-  { 
-    nombre: "luz", 
-    pregunta: "apagar la", 
-    accion: "apagado", 
-    condicion: false }
-];
-//pero me genero conflictos en el momento de modificar cada objeto, por eso descartaria el array
-//Me parece mas optimo crear la clase objeto.
+class Objeto {
+  constructor(nombre, pregunta, accion, condicion) {
+    this.nombre = nombre;
+    this.pregunta = pregunta;
+    this.accion = accion;
+    this.condicion = condicion;
+  }
+  hacerAccion() {
+    console.log(`Quieres ${this.pregunta} ${this.nombre}?`);
+    let respuesta = prompt("Ingrese si o no");
+    if (respuesta.toLowerCase() == "si") {
+      console.log(`Has ${this.accion} la ${this.nombre}`);
+      this.condicion = true;
+    } else {
+      console.log(`No has ${this.accion} la ${this.nombre}`);
+    }
+  }
+}
 
 function jugar() {
   //Funcion principal
 
+  // variables y creacion de objetos
   let seguir = true;
-
+  let llave = new Objeto("llave", "agarrar la", "agarrado la", false);
+  let ventana = new Objeto("ventana", "cerrar la", "cerrado la", false);
+  let hornalla = new Objeto("hornalla", "apagar la", "apagado la", false);
+  let plantas = new Objeto("plantas", "regar la", "regado la", false);
+  let billetera = new Objeto("billetera", "agarrar la", "agarrado la", false);
+  let luz = new Objeto("luz", "cerrar la", "apagado la", false);
+  //array con los objetos del juego
+  let objetos =[llave,ventana,hornalla,plantas, billetera, luz];
+  
   alert("Estas a punto de empezar a jugar! El objetivo es salir de casa");
   alert("Abrí la consola");
-
-  //esta parte de codigo con objeto es mas simple y no necesito la funcion extra reemplazar()
-  for (const objeto of objetos) {
-    if (!seguir) break;
-    let nuevoObj = accion(objeto);
-    if (nuevoObj !== NULL) {
-      reemplazar(nuevoObj);
+  //recorre el array de objetos mientras el juggador no quiera salir
+    for (const obj of objetos){
+        if(!seguir) break;
+        obj.hacerAccion();
+        seguir=irse();
     }
-    seguir = irse();
-  }
-
   console.log("Has salido de tu casa!");
 
   let todasVerdaderas = objetos.every((objeto) => objeto.condicion);
@@ -72,35 +54,12 @@ function jugar() {
   }
 }
 
-function reemplazar(obj) {
-  //funcion que reemplaza del array objeto inicial con el objeto modificado
-  const i = objetos.findIndex((o) => o.nombre === obj.nombre);
-  if (i !== -1) {
-    objetos[i] = obj;
-  }
-}
-
 function irse() {
   //funcion para salir del juego esto no va a estar cuando pueda utilizar eventos.
   console.log("Quieres irte?");
   let ir = prompt("ingrese si o no");
   if (ir.toLowerCase() == "si") {
     return false;
-  }
-}
-
-function accion(objeto) {
-  //consulta para realizar o no la accion.
-  console.log(`Quieres ${objeto.pregunta} ${objeto.nombre}?`);
-  let respuesta = prompt("Ingrese si o no");
-  if (respuesta.toLowerCase() == "si") {
-    console.log(`Has ${objeto.accion} la ${objeto.nombre}`);
-    objeto.condicion = true;
-    return objeto;
-  } else {
-    console.log(`No has ${objeto.accion} la ${objeto.nombre}`);
-    objeto.condicion = false;
-    return null;
   }
 }
 
